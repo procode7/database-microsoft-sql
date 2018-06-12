@@ -1,0 +1,1133 @@
+{
+   "attribute" : [
+      {
+         "arg1" : "",
+         "arg3" : "",
+         "arg4" : "",
+         "label1" : "Username",
+         "label2" : "Password",
+         "label3" : "",
+         "label4" : "",
+         "name" : "MSSQLDATABASE",
+         "secured1" : "0",
+         "secured2" : "1",
+         "secured3" : "0",
+         "secured4" : "0",
+         "value" : ""
+      },
+      {
+         "arg1" : "",
+         "arg3" : "",
+         "arg4" : "",
+         "label1" : "Username",
+         "label2" : "Password",
+         "label3" : "",
+         "label4" : "",
+         "name" : "MSSQLCREDENTIALS",
+         "secured1" : "0",
+         "secured2" : "1",
+         "secured3" : "0",
+         "secured4" : "0",
+         "value" : "Enter credentials here"
+      }
+   ],
+   "hosttemplate" : [
+      {
+         "description" : "Template for MS SQL (2008) databases; replace ARG1 of attribute MSSQLCREDENTIALS with your password. Uses WMI for some checks so need to enter WMI attributes",
+         "has_icon" : "0",
+         "managementurls" : [],
+         "name" : "Database - Microsoft SQL",
+         "servicechecks" : [
+            {
+               "exception" : null,
+               "name" : "MS SQL - Active transactions",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Check memory",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Database size",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - DB Agent Service",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - DB Browser",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Generic SQL server statistics",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - List all DBs",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - List all lock types",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - List SQL cache types",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Lock statistics",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Log cache hit",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Log flush time",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Log growths",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Server buffer manager",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Server Latch/SuperLatch statistics",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Server Listener",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Server Service",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Server wait statistics",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - SQL Server cache statistics",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Stats",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Time to connect",
+               "timed_exception" : null
+            },
+            {
+               "exception" : null,
+               "name" : "MS SQL - Transactions per second",
+               "timed_exception" : null
+            }
+         ]
+      }
+   ],
+   "servicecheck" : [
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -U '%MSSQLCREDENTIALS:1%' -P '%MSSQLCREDENTIALS:2%' -T '%MSSQLDATABASE%' -p 1433 --activetrans -w 5 -c 10 ",
+         "attribute" : {
+            "name" : "MSSQLDATABASE"
+         },
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check number of active transacations on DB",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Active transactions",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_mssql_database.py"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s memory",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check memory without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Check memory",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -c nsc_checkservicestate -a 'ShowAll SQLSERVERAGENT=started' -C '%NRPE_CERTIFICATES:1%' -k '%NRPE_CERTIFICATES:2%' -r '%NRPE_CERTIFICATES:3%' -y '%NRPE_CIPHERS:1%'",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [
+            {
+               "name" : "Opsview Agent"
+            }
+         ],
+         "description" : "Checks Microsoft SQL Agent service is started",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - DB Agent Service",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_nrpe"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -c nsc_checkservicestate -a 'ShowAll SQLBrowser=started' -C '%NRPE_CERTIFICATES:1%' -k '%NRPE_CERTIFICATES:2%' -r '%NRPE_CERTIFICATES:3%' -y '%NRPE_CIPHERS:1%'",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [
+            {
+               "name" : "Opsview Agent"
+            }
+         ],
+         "description" : "Checks Microsoft SQL Browser service is started",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - DB Browser",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_nrpe"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -U '%MSSQLCREDENTIALS:1%' -P '%MSSQLCREDENTIALS:2%' -T '%MSSQLDATABASE%' -p 1433 --datasize -w 70000 -c 99000",
+         "attribute" : {
+            "name" : "MSSQLDATABASE"
+         },
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check size of DB in KB's",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Database size",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_mssql_database.py"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s general",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check SQL server stats without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Generic SQL server statistics",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s listcache",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "List SQL cache types without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - List SQL cache types",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s listdb",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "List SQL cache types without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - List all DBs",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s listlocks",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "List all lock types without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - List all lock types",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s locks",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Lock statistics without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Lock statistics",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -U '%MSSQLCREDENTIALS:1%' -P '%MSSQLCREDENTIALS:2%' -T '%MSSQLDATABASE%' -p 1433 --logcachehit -w 75: -c 50:",
+         "attribute" : {
+            "name" : "MSSQLDATABASE"
+         },
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Log cache hit percentage.",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Log cache hit",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_mssql_database.py"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -U '%MSSQLCREDENTIALS:1%' -P '%MSSQLCREDENTIALS:2%' -T '%MSSQLDATABASE%' -p 1433 --logwait -w 600 -c 800",
+         "attribute" : {
+            "name" : "MSSQLDATABASE"
+         },
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "How long to flush logs (ms)",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Log flush time",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_mssql_database.py"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -U '%MSSQLCREDENTIALS:1%' -P '%MSSQLCREDENTIALS:2%' -T '%MSSQLDATABASE%' -p 1433 --loggrowths -w 5 -c 10 ",
+         "attribute" : {
+            "name" : "MSSQLDATABASE"
+         },
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check log growths",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Log growths",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_mssql_database.py"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' --m checksql -s cache",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check SQL server cache stats without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - SQL Server cache statistics",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s latches",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check SQL latch/superlatch stats without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Server Latch/SuperLatch statistics",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -p 1433 -w 2 -c 5",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Checks Microsoft SQL Server on TCP port 1433",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Server Listener",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_tcp"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -c nsc_checkservicestate -a 'ShowAll MSSQLSERVER=started' -C '%NRPE_CERTIFICATES:1%' -k '%NRPE_CERTIFICATES:2%' -r '%NRPE_CERTIFICATES:3%' -y '%NRPE_CIPHERS:1%'",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [
+            {
+               "name" : "Opsview Agent"
+            }
+         ],
+         "description" : "Checks Microsoft SQL Server Service is started",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Server Service",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_nrpe"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s buffermanager",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Check system buffer without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Server buffer manager",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s waits",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Server wait statistics without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Server wait statistics",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "--IgnoreMyOutDatedPerlModuleVersions -H $HOSTADDRESS$ -u '%WINCREDENTIALS:1%' -p '%WINCREDENTIALS:2%' -m checksql -s sqlstats",
+         "attribute" : null,
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "SQL stats without agent using WMI",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Stats",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_wmi_plus.pl"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -U '%MSSQLCREDENTIALS:1%' -P '%MSSQLCREDENTIALS:2%' -T '%MSSQLDATABASE%' -p 1433 --time2connect -w 0010 -c 0050",
+         "attribute" : {
+            "name" : "MSSQLDATABASE"
+         },
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Checks how long it takes to connect to DB (ms)",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Time to connect",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_mssql_database.py"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      },
+      {
+         "alert_from_failure" : "1",
+         "args" : "-H $HOSTADDRESS$ -U '%MSSQLCREDENTIALS:1%' -P '%MSSQLCREDENTIALS:2%' -T '%MSSQLDATABASE%' -p 1433 --transpsec -w 20 -c 30",
+         "attribute" : {
+            "name" : "MSSQLDATABASE"
+         },
+         "calculate_rate" : "no",
+         "cascaded_from" : null,
+         "check_attempts" : "3",
+         "check_freshness" : "1",
+         "check_interval" : "300",
+         "checktype" : {
+            "name" : "Active Plugin"
+         },
+         "critical_comparison" : null,
+         "critical_value" : null,
+         "dependencies" : [],
+         "description" : "Number of transactions per second on this database",
+         "event_handler" : "",
+         "flap_detection_enabled" : "1",
+         "invertresults" : "0",
+         "label" : null,
+         "level" : 0,
+         "markdown_filter" : "0",
+         "name" : "MS SQL - Transactions per second",
+         "notification_interval" : null,
+         "notification_options" : "w,c,r,u,f",
+         "oid" : null,
+         "plugin" : {
+            "name" : "check_mssql_database.py"
+         },
+         "retry_check_interval" : "60",
+         "sensitive_arguments" : "1",
+         "servicegroup" : {
+            "name" : "Database - MS SQL Server"
+         },
+         "snmptraprules" : [],
+         "stale_state" : "0",
+         "stale_text" : "",
+         "stale_threshold_seconds" : "3600",
+         "stalking" : null,
+         "volatile" : "0",
+         "warning_comparison" : null,
+         "warning_value" : null
+      }
+   ],
+   "servicegroup" : [
+      {
+         "name" : "Database - MS SQL Server"
+      }
+   ]
+}
