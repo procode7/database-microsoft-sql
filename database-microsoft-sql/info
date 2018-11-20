@@ -1,5 +1,5 @@
 NAME=com.opsview.opspack.database_microsoft_sql
-VERSION=2.0
+VERSION=2.1
 ALIAS=Database - Microsoft SQL
 DEPENDENCIES=com.opsview.opspack.os_opsview_agent,com.opsview.opspack.os_windows_server_2008_wmi_base
 OPSVIEW_MIN_VERSION=6.0.0
